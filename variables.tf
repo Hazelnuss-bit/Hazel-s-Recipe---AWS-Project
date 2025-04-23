@@ -1,4 +1,5 @@
 variable "subnet_id" {
+  default = ""
   type = string
 }
 
