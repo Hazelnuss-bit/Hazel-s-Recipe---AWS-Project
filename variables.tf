@@ -4,9 +4,11 @@ variable "subnet_id" {
 }
 
 variable "security_group_id" {
+  default = ""
   type = string
 }
 
 variable "key_name" {
+  default = ""
   type = string
 }
