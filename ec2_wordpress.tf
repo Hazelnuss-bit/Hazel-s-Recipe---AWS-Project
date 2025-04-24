@@ -1,23 +1,13 @@
+# EC2 Instance
 resource "aws_instance" "wordpress" {
-  ami           = "ami-0440d3b780d96b29d"  # Amazon Linux 2023
+  ami           = "ami-0c02fb55956c7d316" # Amazon Linux 2
   instance_type = "t2.micro"
-  
-  subnet_id                  = var.subnet_id
-  vpc_security_group_ids     = [var.security_group_id]
-  key_name                   = var.key_name
+  subnet_id     = aws_subnet.pub1-wordpress.id
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
   associate_public_ip_address = true
+  key_name      = var.key_name
 
-  root_block_device {
-    volume_size = 20
-    volume_type = "gp3"
-    encrypted   = true
+tags = {
+    Name = "WordPress-EC2"
   }
-
-  tags = {
-    Name = "WordPress-Server"
-  }
-}
-
-output "public_ip" {
-  value = aws_instance.wordpress.public_ip
 }
