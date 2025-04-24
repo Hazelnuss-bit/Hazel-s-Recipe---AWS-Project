@@ -16,13 +16,3 @@ resource "aws_subnet" "pub1-wordpress" {
     Name = "pub1-wordpress"
   }
 }
-
-resource "aws_subnet" "priv1-wordpress" {
-  vpc_id            = aws_vpc.wordpress-vpc.id
-  cidr_block        = "10.0.1.0/28"
-  availability_zone = "us-west-2b"
-
-  tags = {
-    Name = "priv1-wordpress"
-  }
-}
