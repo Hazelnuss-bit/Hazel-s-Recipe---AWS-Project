@@ -2,6 +2,7 @@
 resource "aws_security_group" "web_sg" {
   name        = "web_sg"
   description = "Allow HTTP and SSH access"
+  vpc_id      = aws_vpc.wordpress-vpc.id  # Explicitly associate security group with the VPC
   
   ingress {
     from_port   = 22
