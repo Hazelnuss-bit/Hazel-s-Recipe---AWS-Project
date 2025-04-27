@@ -1,6 +1,6 @@
 # EC2 Instance
 resource "aws_instance" "wordpress" {
-  ami = "ami-0e8c04af2729ff1bb" # Amazon Linux 2 in us-west-2
+  ami = "ami-0ee8244746ec5be37" # Amazon Linux 2 in us-west-2
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.pub1-wordpress.id
   vpc_security_group_ids = [aws_security_group.web_sg.id]
