@@ -1,5 +1,5 @@
-    # Route Table
-    resource "aws_route_table" "public_rt" {
+# Route Table
+resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.wordpress-vpc.id
 
   route {
