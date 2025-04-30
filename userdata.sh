@@ -19,8 +19,10 @@ sudo amazon-linux-extras enable php8.0
 sudo yum clean metadata
 sudo yum install -y php php-cli php-pdo php-mysqlnd php-fpm php-xml php-mbstring wget unzip
 
-# Install MariaDB server
-sudo yum install -y mariadb105-server
+# ✅ FIXED: Install MariaDB correctly
+sudo amazon-linux-extras enable mariadb10.5
+sudo yum clean metadata
+sudo yum install -y mariadb-server
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 
