@@ -7,4 +7,4 @@ resource "aws_subnet" "pub1-wordpress" {
   tags = {
     Name = "wordpress-publicsubnet"
   }
-}
+}   
