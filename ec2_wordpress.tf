@@ -7,13 +7,8 @@ resource "aws_instance" "wordpress" {
   associate_public_ip_address = true
   key_name      = var.key_name
 
-user_data = templatefile("${path.module}/userdata.sh", {
-  DBName         = "wordpress"
-  DBUser         = "wp_user"
-  DBPassword     = "admin123"
-  DBHost         = "localhost"
-  DBRootPassword = "admin123"
-})
+user_data = file("${path.module}/userdata.sh")
+
 
 tags = {
     Name = "WordPress-EC2"
