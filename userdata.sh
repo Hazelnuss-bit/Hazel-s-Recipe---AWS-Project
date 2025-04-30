@@ -1,89 +1,60 @@
 #!/bin/bash
 
-# Update system packages
+DBName="${DBName}"
+DBUser="${DBUser}"
+DBPassword="${DBPassword}"
+DBHost="${DBHost}"
+DBRootPassword="${DBRootPassword}"
+
+# Update system
 sudo yum update -y
 
-# Install Apache (httpd)
-sudo yum install httpd -y
+# Install Apache Web Server
+sudo yum install -y httpd
 sudo systemctl start httpd
 sudo systemctl enable httpd
 
-# Install Amazon Linux Extras and PHP 8.0
+# Install PHP and dependencies
 sudo amazon-linux-extras enable php8.0
 sudo yum clean metadata
-sudo yum install php php-cli php-pdo php-mysqlnd php-fpm php-xml php-mbstring wget unzip -y
+sudo yum install -y php php-cli php-pdo php-mysqlnd php-fpm php-xml php-mbstring wget unzip
 
-# Restart Apache to load PHP modules
-sudo systemctl restart httpd
-
-# Install MariaDB
-sudo yum install mariadb105-server -y
+# Install MariaDB server
+sudo yum install -y mariadb105-server
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 
-# Set up MariaDB (manual root password setup skipped for automation)
-
 # Create WordPress database and user
-mysql -u root <<MYSQL_SCRIPT
-CREATE DATABASE wordpress;
-CREATE USER 'wp_user'@'localhost' IDENTIFIED BY 'admin123';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_user'@'localhost';
+sudo mysql -u root <<MYSQL_SCRIPT
+CREATE DATABASE IF NOT EXISTS $DBName;
+CREATE USER IF NOT EXISTS '$DBUser'@'localhost' IDENTIFIED BY '$DBPassword';
+GRANT ALL PRIVILEGES ON $DBName.* TO '$DBUser'@'localhost';
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
-# Download and extract WordPress
-wget https://wordpress.org/latest.tar.gz
-tar -xvzf latest.tar.gz
-
-# Move WordPress files to Apache's root directory
-sudo mv wordpress/* /var/www/html/
-
-# Set correct ownership and permissions
-sudo chown -R apache:apache /var/www/html/
-sudo chmod -R 755 /var/www/html/
-
-# Configure WordPress database settings
+# Download and install WordPress
+sudo wget http://wordpress.org/latest.tar.gz -P /var/www/html
 cd /var/www/html
-sudo cp wp-config-sample.php wp-config.php
+sudo tar -zxvf latest.tar.gz
+sudo cp -rvf wordpress/* .
+sudo rm -R wordpress
+sudo rm latest.tar.gz
 
-sudo sed -i "s/database_name_here/wordpress/" wp-config.php
-sudo sed -i "s/username_here/wp_user/" wp-config.php
-sudo sed -i "s/password_here/admin123/" wp-config.php
+# Configure WordPress
+sudo cp ./wp-config-sample.php ./wp-config.php 
+sudo sed -i "s/'database_name_here'/'$DBName'/g" wp-config.php
+sudo sed -i "s/'username_here'/'$DBUser'/g" wp-config.php
+sudo sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php
+sudo sed -i "s/'localhost'/'$DBHost'/g" wp-config.php
 
-# Set wp-config.php permissions
-sudo chmod 644 wp-config.php
+# Set correct permissions
+sudo usermod -a -G apache ec2-user
+sudo chown -R ec2-user:apache /var/www/
+sudo chmod 2775 /var/www/
+sudo find /var/www/ -type d -exec chmod 2775 {} \;
+sudo find /var/www/ -type f -exec chmod 0664 {} \;
 
-# Restart Apache again
+# Restart Apache
 sudo systemctl restart httpd
 
-echo "✅ WordPress installation is complete!"
-sudo yum install php php-mysqlnd php-fpm php-xml php-mbstring -y
-sudo systemctl restart httpd
-
-# Download and extract WordPress
-wget https://wordpress.org/latest.tar.gz
-tar -xvzf latest.tar.gz
-
-# Move WordPress files to the Apache web directory
-sudo mv wordpress/* /var/www/html/
-
-# Set correct ownership and permissions
-sudo chown -R apache:apache /var/www/html/*
-sudo chmod -R 755 /var/www/html/*
-
-# Create wp-config.php file
-cd /var/www/html
-sudo cp wp-config-sample.php wp-config.php
-
-# Automate wp-config.php with database credentials
-sudo sed -i "s/define( 'DB_NAME', 'database_name_here' );/define( 'DB_NAME', 'wordpress' );/" wp-config.php
-sudo sed -i "s/define( 'DB_USER', 'username_here' );/define( 'DB_USER', 'wp_user' );/" wp-config.php
-sudo sed -i "s/define( 'DB_PASSWORD', 'password_here' );/define( 'DB_PASSWORD', 'admin123' );/" wp-config.php
-
-# Set permissions for wp-config.php
-sudo chmod 644 wp-config.php
-
-# Restart Apache to ensure everything is loaded
-sudo systemctl restart httpd
-
-echo "WordPress installation is complete!" # just print a message
+echo "✅ WordPress installation and configuration complete!"
