@@ -44,10 +44,10 @@ sudo rm latest.tar.gz
 
 # Configure WordPress
 sudo cp ./wp-config-sample.php ./wp-config.php 
-sudo sed -i "s/'database_name_here'/'$DBName'/g" wp-config.php
-sudo sed -i "s/'username_here'/'$DBUser'/g" wp-config.php
-sudo sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php
-sudo sed -i "s/'localhost'/'$DBHost'/g" wp-config.php
+sudo sed -i "s/'database_name_here'/'${DBName}'/g" wp-config.php
+sudo sed -i "s/'username_here'/'{$DBUser}'/g" wp-config.php
+sudo sed -i "s/'password_here'/'{$DBPassword'/g" wp-config.php
+sudo sed -i "s/'localhost'/'{$DBHost}'/g" wp-config.php
 
 # Set correct permissions
 sudo usermod -a -G apache ec2-user
