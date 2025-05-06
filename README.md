@@ -1,4 +1,4 @@
-Hazel's Recipe — AWS Project
+# 🌐 Hazel's Recipe — AWS Project 🚀
 
 📘 Project Description
 
