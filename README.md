@@ -30,3 +30,23 @@ This script is executed automatically when the EC2 instance is launched. It inst
 10. **Final Setup** – Restarts Apache to ensure all services are running properly.
 
 Once completed, WordPress is ready to be accessed via the EC2 instance’s public IP address.
+
+## 🗺️ Basic WordPress Deployment Architecture
+
+![diagram](https://github.com/user-attachments/assets/7bdb9167-65c0-4121-9a53-ca863faedb92)
+
+This architecture was created as part of a learning project and represents a simple, single-instance WordPress deployment on AWS. It is intended for educational purposes and helps demonstrate how basic AWS services work together to host a web application. The design includes:
+
+A custom VPC (10.0.0.0/16) for isolated networking.
+
+One public subnet (10.0.0.0/28) within a single Availability Zone.
+
+An EC2 instance configured with a LAMP stack and WordPress.
+
+A security group to allow HTTP and SSH access.
+
+An internet gateway and route table to enable external connectivity.
+
+Public access to the WordPress site via the EC2 instance’s IP address.
+
+This setup is ideal for gaining hands-on experience with AWS infrastructure, Terraform automation, and WordPress deployment basics.
