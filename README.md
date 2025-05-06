@@ -46,3 +46,42 @@ This architecture was created as part of a learning project and represents a sim
 
 This setup is ideal for gaining hands-on experience with AWS infrastructure, Terraform automation, and WordPress deployment basics.
 
+# 📘 How to Use
+
+### 🔧 Requirements
+
+- Terraform 1.0 or higher – for managing infrastructure as code
+- AWS CLI – installed and configured on your machine
+- An AWS account with permissions to create resources like EC2, VPC, subnets, and security groups
+
+### 🚀 Steps to Deploy
+
+1. **Clone the repository to your local machine**:
+   ```bash
+   git clone https://github.com/yourusername/aws-wordpress-terraform.git
+   cd aws-wordpress-terraform
+   ```
+
+2. **Set up your AWS credentials, either by**:
+   - Configuring ~/.aws/credentials, or
+   - Exporting environment variables:
+     ```bash
+     export AWS_ACCESS_KEY_ID=your_key
+     export AWS_SECRET_ACCESS_KEY=your_secret
+     ```
+
+3. **(Optional)** Edit `variables.tf` to adjust `key_name`, `subnet_id`, or `security_group_id` if not using `terraform.tfvars`.
+
+4. **Initialize Terraform**:
+   ```bash
+   terraform init
+   ```
+
+5. **Apply the Terraform plan**:
+   ```bash
+   terraform apply
+   ```
+
+6. **Access WordPress**:
+   - Get the **public IP** of your EC2 instance from the output
+   - Open it in your browser to complete the WordPress setup
