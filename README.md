@@ -6,12 +6,13 @@ Hazel's Recipe is a simple and beginner-friendly infrastructure project that dep
 
 ## 🏗️ Infrastructure Overview
 
-**VPC** – A custom virtual private cloud to host your infrastructure.
-**Subnet (Public)** – A single public subnet where your EC2 instance resides.
-**Internet Gateway** – Enables internet access for your EC2 instance.
-**Route Table** – Configured to allow traffic from the subnet to the internet via the Internet Gateway.
-**Security Group** – Allows inbound access (e.g., HTTP on port 80, SSH on port 22).
+**VPC** – A custom virtual private cloud to host your infrastructure.  
+**Subnet (Public)** – A single public subnet where your EC2 instance resides.  
+**Internet Gateway** – Enables internet access for your EC2 instance.  
+**Route Table** – Configured to allow traffic from the subnet to the internet via the Internet Gateway.  
+**Security Group** – Allows inbound access (e.g., HTTP on port 80, SSH on port 22).  
 **EC2 Instance (Amazon Linux 2)** – A virtual server that hosts the WordPress website.
+
 
 ## 📜 User Data Script Overview
 
