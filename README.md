@@ -1,6 +1,10 @@
 # 🌐 Hazel's Recipe — AWS Project 🚀
 
 ![2](https://github.com/user-attachments/assets/1422d261-ac5b-4115-b174-70f924157544)
+![3](https://github.com/user-attachments/assets/fead9619-dc80-40e6-85e0-ebf94451c2ab)
+![7](https://github.com/user-attachments/assets/8f5708c7-6b50-44f8-b013-c19046dc506c)
+
+
 
 📘 Project Description
 
